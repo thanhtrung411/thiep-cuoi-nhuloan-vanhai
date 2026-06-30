@@ -304,19 +304,22 @@
 
       const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxcCjAW1Q3tDJmosHV6Aqas2ec1_enDiY5zKqdbsIIMAXepLGJ_B_mkSvcci7DAgJ4K/exec";
 
+      // Chuyển dữ liệu sang URLSearchParams để tương thích hoàn toàn với chế độ no-cors trên GitHub Pages
+      const params = new URLSearchParams({
+        guestName: guestName,
+        guestMessage: guestMessage,
+        attendance: attendance,
+        guestParty: guestParty,
+        guestCount: guestCount
+      });
+
       fetch(GOOGLE_SHEET_URL, {
         method: "POST",
         mode: "no-cors",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify({
-          guestName: guestName,
-          guestMessage: guestMessage,
-          attendance: attendance,
-          guestParty: guestParty,
-          guestCount: guestCount
-        })
+        body: params.toString()
       }).catch(err => console.error("Lỗi gửi Google Sheet:", err));
 
       if (animOverlay && envContainer) {
