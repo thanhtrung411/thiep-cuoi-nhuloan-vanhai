@@ -3,17 +3,17 @@
    Design Tokens & Reset
    ═══════════════════════════════════════════ */
 :root {
-  --wine: #801e2a;
-  --wine-dark: #4b1018;
-  --wine-light: #a8344280;
-  --gold: #c29a62;
-  --gold-light: rgba(194, 154, 98, 0.18);
-  --paper: #fff8ef;
-  --ivory: #fffcf6;
-  --ink: #252628;
-  --muted: #746b62;
-  --line: rgba(37, 38, 40, 0.14);
-  --shadow: 0 26px 70px rgba(80, 17, 25, 0.18);
+  --wine: #c77d8f;
+  --wine-dark: #a25568;
+  --wine-light: rgba(199, 125, 143, 0.5);
+  --gold: #e8a87c;
+  --gold-light: rgba(232, 168, 124, 0.18);
+  --paper: #fff5f7;
+  --ivory: #fffafc;
+  --ink: #3d2c33;
+  --muted: #8a7680;
+  --line: rgba(61, 44, 51, 0.12);
+  --shadow: 0 20px 60px rgba(162, 85, 104, 0.15);
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -25,10 +25,10 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(75,16,24,0.08), transparent 34%, transparent 66%, rgba(75,16,24,0.08)),
-    #f3eee8;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  line-height: 1.5;
+    linear-gradient(90deg, rgba(199,125,143,0.06), transparent 34%, transparent 66%, rgba(199,125,143,0.06)),
+    #faf0f2;
+  font-family: "Quicksand", "Quicksand", sans-serif;
+  line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -64,7 +64,7 @@ button { border: 0; cursor: pointer; }
    ═══════════════════════════════════════════ */
 .small-title {
   margin: 0 0 0.6rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -73,11 +73,11 @@ button { border: 0; cursor: pointer; }
 }
 
 .section-script {
-  margin: 0;
+  margin: 0.5rem 0 0;
   font-family: "Great Vibes", cursive;
   font-size: clamp(2.6rem, 12vw, 3.7rem);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.15;
 }
 
 /* ═══════════════════════════════════════════
@@ -91,13 +91,13 @@ button { border: 0; cursor: pointer; }
   place-items: center;
   overflow: hidden;
   background: var(--wine-dark);
-  transition: visibility 0s linear 1.15s, opacity 0.6s ease 0.9s;
+  transition: visibility 0s linear 2.2s;
   cursor: pointer;
 }
 
 .invitation-gate.is-open {
   visibility: hidden;
-  opacity: 0;
+  background: transparent;
   pointer-events: none;
 }
 
@@ -110,7 +110,7 @@ button { border: 0; cursor: pointer; }
     radial-gradient(circle at 50% 22%, rgba(255,248,239,0.15), transparent 34%),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 18px),
     linear-gradient(135deg, #3e0c13, var(--wine), #5f1720);
-  transition: transform 1.15s var(--ease);
+  transition: transform 2.2s var(--ease);
 }
 
 .gate-panel::after {
@@ -145,11 +145,16 @@ button { border: 0; cursor: pointer; }
   text-align: center;
   color: var(--ivory);
   animation: fadeInGate 1.2s ease-out;
+  transition: opacity 0.8s ease;
+}
+
+.invitation-gate.is-open .gate-content {
+  opacity: 0;
 }
 
 .gate-label {
   margin: 0 0 0.3rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -174,7 +179,7 @@ button { border: 0; cursor: pointer; }
 
 .gate-date-preview {
   margin: 0.8rem 0 1.5rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -191,7 +196,7 @@ button { border: 0; cursor: pointer; }
   color: var(--ivory);
   background: rgba(79,17,25,0.5);
   backdrop-filter: blur(6px);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -286,7 +291,7 @@ button { border: 0; cursor: pointer; }
   border-radius: 8px;
   color: var(--ivory);
   background: var(--wine);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   white-space: nowrap;
@@ -380,7 +385,7 @@ button { border: 0; cursor: pointer; }
 
 .cover-date {
   margin: 1.2rem 0 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -408,8 +413,8 @@ button { border: 0; cursor: pointer; }
   font-size: 3.6rem;
   font-weight: 400;
   color: var(--wine);
-  line-height: 1;
-  margin: 0;
+  line-height: 1.15;
+  margin: 0.5rem 0 0;
 }
 
 .ornament {
@@ -426,9 +431,8 @@ button { border: 0; cursor: pointer; }
   height: 275px;
   margin: 0 auto;
   overflow: hidden;
-  border: 3px solid var(--wine);
-  border-radius: 200px 200px 12px 12px;
-  box-shadow: var(--shadow);
+  border-radius: 110px 110px 24px 24px;
+  box-shadow: 0 12px 28px rgba(61, 16, 25, 0.15), 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
 .portrait-medallion img {
@@ -466,7 +470,7 @@ button { border: 0; cursor: pointer; }
 .invite-message p {
   margin: 0;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.88rem;
   line-height: 1.6;
 }
@@ -478,16 +482,17 @@ button { border: 0; cursor: pointer; }
 }
 
 .family-card > div {
-  padding: 1rem 0.7rem;
-  border: 1px solid rgba(194,154,98,0.45);
+  padding: 1rem 0.4rem;
   background: rgba(255,252,246,0.72);
   text-align: center;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
 }
 
 .family-card span {
   display: block;
   color: var(--wine);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -497,15 +502,16 @@ button { border: 0; cursor: pointer; }
 
 .family-card strong {
   display: block;
-  font-size: 1rem;
+  font-size: 0.84rem;
   font-weight: 600;
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .family-card em {
   display: block;
   margin-top: 0.3rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-style: normal;
   color: var(--muted);
@@ -530,17 +536,19 @@ button { border: 0; cursor: pointer; }
 
 .couple-card {
   position: relative;
-  margin-top: 1.5rem;
+  width: 75%;
+  margin: 1.5rem auto 0;
   overflow: hidden;
   background: var(--ivory);
-  box-shadow: 0 20px 52px rgba(0,0,0,0.22);
+  box-shadow: var(--shadow);
   text-align: left;
 }
 
 .couple-card img {
   width: 100%;
-  height: 300px;
+  height: 270px;
   object-fit: cover;
+  object-position: center top;
 }
 
 .couple-card > div {
@@ -554,7 +562,7 @@ button { border: 0; cursor: pointer; }
 .couple-card span {
   display: block;
   color: var(--wine);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -572,14 +580,14 @@ button { border: 0; cursor: pointer; }
 .couple-card p {
   margin: 0.3rem 0 0;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.82rem;
   line-height: 1.55;
   font-style: italic;
 }
 
-.bride-card, .groom-card { border-radius: 180px 180px 10px 10px; }
-.bride-card img, .groom-card img { border-radius: 177px 177px 0 0; }
+.bride-card, .groom-card { border-radius: 120px 120px 20px 20px; }
+.bride-card img, .groom-card img { border-radius: 116px 116px 0 0; }
 
 /* ═══════════════════════════════════════════
    5. EVENTS
@@ -600,14 +608,13 @@ button { border: 0; cursor: pointer; }
 /* Calendar */
 .calendar-widget {
   padding: 1.2rem;
-  border: 1px solid rgba(194,154,98,0.4);
   background: var(--paper);
   text-align: center;
 }
 
 .calendar-title {
   margin: 0 0 1rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--wine);
@@ -620,7 +627,7 @@ button { border: 0; cursor: pointer; }
 }
 
 .calendar-header {
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -633,7 +640,7 @@ button { border: 0; cursor: pointer; }
   display: grid;
   place-items: center;
   padding: 7px 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--ink);
@@ -688,7 +695,7 @@ button { border: 0; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   color: var(--muted);
@@ -706,100 +713,92 @@ button { border: 0; cursor: pointer; }
 /* Event Cards */
 .event-cards {
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .event-card {
-  padding: 1.2rem;
-  border: 1px solid rgba(194,154,98,0.4);
+  padding: 1.5rem 1.2rem;
   background: var(--paper);
-  position: relative;
-  overflow: hidden;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
 }
 
-.event-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--wine);
-}
-
-.event-card-badge {
-  display: inline-block;
-  padding: 0.3rem 0.7rem;
-  background: var(--wine);
-  color: #fff;
-  font-family: Inter, Arial, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+.event-card-title {
+  margin: 0 0 0.3rem;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  color: var(--ink);
 }
 
-.badge-party { background: var(--gold); }
+.event-card-time {
+  margin: 0 0 1rem;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--muted);
+}
 
 .event-card-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0 auto 1rem;
+  max-width: 290px;
+}
+
+.date-side-left, .date-side-right {
+  flex: 1;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  padding: 0.5rem 0;
   text-align: center;
-  margin-bottom: 0.8rem;
 }
 
 .event-day-name {
   display: block;
-  font-family: Inter, Arial, sans-serif;
-  font-size: 0.72rem;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
 }
 
 .event-day-number {
-  display: block;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 4rem;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 3.2rem;
   font-weight: 700;
   line-height: 1;
-  color: var(--wine);
+  color: var(--ink);
+  padding: 0 0.5rem;
 }
 
 .event-month {
   display: block;
-  font-family: Inter, Arial, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--ink);
+  letter-spacing: 0.05em;
 }
-
-.event-card-details { text-align: center; }
-
-.event-detail-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin: 0.3rem 0.6rem;
-  font-family: Inter, Arial, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.event-detail-row svg { color: var(--wine); }
 
 .event-address {
-  margin: 0.6rem 0 0.2rem;
-  font-family: Inter, Arial, sans-serif;
+  margin: 0.5rem 0 0;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.82rem;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .event-lunar {
-  margin: 0.3rem 0 0;
-  font-family: "Cormorant Garamond", serif;
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
   font-size: 0.88rem;
   font-style: italic;
   color: var(--gold);
@@ -811,15 +810,16 @@ button { border: 0; cursor: pointer; }
   justify-content: center;
   gap: 0.4rem;
   margin-top: 1rem;
-  padding: 0.7rem;
+  padding: 0.7rem 1.5rem;
   background: var(--wine);
   color: #fff;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
+  border-radius: 50px;
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
@@ -836,13 +836,12 @@ button { border: 0; cursor: pointer; }
   background:
     radial-gradient(circle at 50% 50%, rgba(128,30,42,0.08), transparent 60%),
     var(--paper);
-  border: 1px solid rgba(194,154,98,0.3);
   text-align: center;
 }
 
 .countdown-heading {
   margin: 0 0 1rem;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -862,19 +861,19 @@ button { border: 0; cursor: pointer; }
   padding: 0.8rem 0.4rem;
   background: var(--wine);
   color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(128,30,42,0.25);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(162, 85, 104, 0.2);
 }
 
 .countdown-value {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Playfair Display", serif;
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 1;
 }
 
 .countdown-label {
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -884,7 +883,7 @@ button { border: 0; cursor: pointer; }
 
 .countdown-expired {
   margin: 0.8rem 0 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--wine);
@@ -916,20 +915,24 @@ button { border: 0; cursor: pointer; }
 .gallery-photo {
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(194,154,98,0.35);
   background: #eadfd5;
   aspect-ratio: 1;
+  border-radius: 16px;
 }
 
 .gallery-tall {
   grid-row: span 2;
   aspect-ratio: auto;
-  border-radius: 180px 180px 10px 10px;
+  border-radius: 110px 110px 16px 16px;
 }
 
 .gallery-wide {
   grid-column: 1 / -1;
-  aspect-ratio: 1.65;
+  aspect-ratio: auto;
+}
+
+.gallery-wide img {
+  height: auto;
 }
 
 .gallery-photo img {
@@ -946,7 +949,7 @@ button { border: 0; cursor: pointer; }
   margin: 1.5rem auto 0;
   max-width: 300px;
   text-align: center;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 1.1rem;
   font-style: italic;
   color: var(--muted);
@@ -1023,7 +1026,7 @@ button { border: 0; cursor: pointer; }
   max-width: 300px;
   margin: 0.9rem auto 0;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.88rem;
   line-height: 1.55;
 }
@@ -1031,10 +1034,10 @@ button { border: 0; cursor: pointer; }
 .rsvp-form {
   display: grid;
   gap: 1rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(194,154,98,0.45);
-  background: rgba(255,248,239,0.82);
-  box-shadow: 0 18px 58px rgba(37,38,40,0.08);
+  padding: 1.5rem 1.2rem;
+  background: var(--ivory);
+  box-shadow: var(--shadow);
+  border-radius: 24px;
 }
 
 .form-field { display: grid; gap: 0.3rem; }
@@ -1042,7 +1045,7 @@ button { border: 0; cursor: pointer; }
 .form-field label,
 .radio-group legend {
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1127,11 +1130,12 @@ button { border: 0; cursor: pointer; }
   background: var(--wine);
   border: 0;
   cursor: pointer;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  border-radius: 50px;
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1157,6 +1161,7 @@ button { border: 0; cursor: pointer; }
   mask:
     radial-gradient(circle var(--cut) at 0 50%, transparent 98%, #000 100%) 0 0 / 50% 100% no-repeat,
     radial-gradient(circle var(--cut) at 100% 50%, transparent 98%, #000 100%) 100% 0 / 50% 100% no-repeat;
+  border-radius: 20px;
   animation: slideUp 0.6s var(--ease);
 }
 
@@ -1172,7 +1177,7 @@ button { border: 0; cursor: pointer; }
 .ticket-label {
   margin: 0 0 0.2rem;
   color: var(--wine);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -1183,7 +1188,7 @@ button { border: 0; cursor: pointer; }
   display: block;
   margin: 0 0 0.2rem;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -1209,7 +1214,7 @@ button { border: 0; cursor: pointer; }
   display: block;
   margin-top: 0.3rem;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.75rem;
 }
 
@@ -1218,7 +1223,7 @@ button { border: 0; cursor: pointer; }
   place-items: center;
   gap: 0.6rem;
   border-top: 1px dashed var(--line);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -1249,7 +1254,7 @@ button { border: 0; cursor: pointer; }
   margin: 0 auto;
   text-align: center;
   color: var(--muted);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.86rem;
   line-height: 1.55;
 }
@@ -1260,18 +1265,25 @@ button { border: 0; cursor: pointer; }
   gap: 0.8rem;
 }
 
+.gift-cards-single {
+  grid-template-columns: 1fr;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
 .gift-card {
-  padding: 1rem;
-  border: 1px solid rgba(194,154,98,0.4);
+  padding: 1.2rem;
   background: var(--ivory);
   text-align: center;
   display: grid;
   gap: 0.6rem;
   justify-items: center;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
 }
 
 .gift-card-header {
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--muted);
@@ -1301,15 +1313,16 @@ button { border: 0; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 1.2rem;
   background: var(--wine);
   color: #fff;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
+  border-radius: 50px;
   transition: background 0.25s ease;
 }
 
@@ -1348,13 +1361,14 @@ button { border: 0; cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 10%;
 }
 
 .thank-note {
   max-width: 300px;
   margin: 0.3rem auto 0;
   color: rgba(255,252,246,0.82);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Quicksand, Quicksand, sans-serif;
   font-size: 0.86rem;
   line-height: 1.55;
 }
@@ -1365,6 +1379,11 @@ button { border: 0; cursor: pointer; }
   font-size: 1.8rem;
   font-weight: 400;
   color: var(--gold);
+}
+
+.thank-amp {
+  margin: 0 0.5rem;
+  display: inline-block;
 }
 
 /* ═══════════════════════════════════════════
@@ -1413,3 +1432,215 @@ button { border: 0; cursor: pointer; }
   .gift-card { padding: 0.7rem; }
   .gift-qr { width: 80px; height: 80px; }
 }
+
+/* ═══════════════════════════════════════════
+   10. RSVP LETTER & ENVELOPE ANIMATION
+   ═══════════════════════════════════════════ */
+.rsvp-anim-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 44, 51, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.rsvp-anim-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.envelope-container {
+  position: relative;
+  width: 280px;
+  height: 400px;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+/* The Letter */
+.letter-paper {
+  position: absolute;
+  bottom: 150px;
+  left: 15px;
+  width: 250px;
+  height: 185px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1rem;
+  z-index: 2;
+  transform: translateY(0);
+  transition: transform 2.0s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.letter-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px dashed rgba(199, 125, 143, 0.3);
+  padding: 0.5rem;
+}
+
+.letter-title {
+  margin: 0 0 0.3rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 1.4rem;
+  color: var(--wine-dark);
+  text-align: center;
+}
+
+.letter-guest {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin: 0 0 0.2rem;
+  font-family: Quicksand, Quicksand, sans-serif;
+}
+
+.letter-msg-box {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 0.2rem;
+  padding-right: 2px;
+}
+
+.letter-message {
+  font-size: 0.75rem;
+  color: var(--ink);
+  line-height: 1.35;
+  margin: 0;
+  font-style: italic;
+  font-family: Quicksand, Quicksand, sans-serif;
+  word-break: break-word;
+}
+
+.letter-closing {
+  font-size: 0.7rem;
+  text-align: right;
+  color: var(--wine);
+  margin: 0;
+  font-weight: 700;
+  font-family: Quicksand, Quicksand, sans-serif;
+}
+
+/* The Envelope Parts */
+.env-back {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  height: 160px;
+  background: #d49ba8;
+  border-radius: 0 0 16px 16px;
+  z-index: 1;
+}
+
+.env-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  height: 160px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.env-flap {
+  position: absolute;
+  bottom: 160px;
+  left: 0;
+  width: 280px;
+  height: 90px;
+  transform-origin: bottom;
+  transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1), filter 1.2s ease;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+}
+
+/* Animation Steps */
+.envelope-container.step-fold .letter-paper {
+  transform: translateY(180px);
+}
+
+.envelope-container.step-flap .env-flap {
+  transform: rotateX(180deg);
+  z-index: 4;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.22));
+}
+
+.envelope-container.step-fly {
+  animation: flyAway 2.0s ease-in-out forwards;
+}
+
+/* Red Heart Seal */
+.env-heart {
+  position: absolute;
+  bottom: 60px;
+  left: 128px;
+  width: 24px;
+  height: 24px;
+  font-size: 1.6rem;
+  line-height: 24px;
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(3.5);
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.envelope-container.step-heart .env-heart {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes flyAway {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0) rotate(0);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(0.95) translate3d(0, 15px, 0) rotate(-4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.05) translate3d(400px, -850px, 0) rotate(40deg);
+    opacity: 0;
+  }
+}
+
+/* RSVP Thank You Card */
+.rsvp-thankyou {
+  text-align: center;
+  padding: 2.2rem 1.5rem;
+  background: var(--ivory);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  animation: slideUp 0.6s var(--ease);
+}
+
+.rsvp-thankyou[hidden] {
+  display: none;
+}
+
+.thankyou-title {
+  margin: 0 0 0.5rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 2.2rem;
+  color: var(--wine-dark);
+}
+
+.thankyou-msg {
+  margin: 0;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+

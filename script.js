@@ -229,9 +229,9 @@
 
     if (!daysEl && !hoursEl && !minutesEl && !secondsEl) return;
 
-    // July 20, 2026, 06:30 AM Vietnam time (UTC+7)
-    // In UTC that is July 19, 2026, 23:30:00
-    const weddingDateUTC = Date.UTC(2026, 6, 19, 23, 30, 0); // month is 0-indexed
+    // July 19, 2026, 08:30 AM Vietnam time (UTC+7)
+    // In UTC that is July 19, 2026, 01:30:00
+    const weddingDateUTC = Date.UTC(2026, 6, 19, 1, 30, 0); // month is 0-indexed
 
     const pad = (n) => String(Math.max(0, n)).padStart(2, "0");
 
@@ -284,7 +284,11 @@
      ============================================================ */
   const initRSVP = () => {
     const form = document.getElementById("rsvpForm");
-    const boardingPass = document.getElementById("boardingPass");
+    const thankYou = document.getElementById("rsvpThankYou");
+    const animOverlay = document.getElementById("rsvpAnimOverlay");
+    const envContainer = document.getElementById("envContainer");
+    const letterGuestName = document.getElementById("letterGuestName");
+    const letterGuestMessage = document.getElementById("letterGuestMessage");
 
     if (!form) return;
 
@@ -293,27 +297,55 @@
 
       const formData = new FormData(form);
       const guestName = formData.get("guestName") || "Khách mời";
-      const guestMessage = formData.get("guestMessage") || "";
-      const attendance = formData.get("attendance") || "Sẽ tham dự";
-      const party = formData.get("guestParty") || "Tiệc Cưới Nhà Gái";
-      const guestCount = formData.get("guestCount") || "1";
+      const guestMessage = formData.get("guestMessage") || "Chúc hai bạn trăm năm hạnh phúc, bạc đầu nghĩa phu thê! ❤️";
 
-      // Fill ticket / boarding pass elements
-      const ticketName = document.getElementById("ticketName");
-      const ticketCount = document.getElementById("ticketCount");
-      const ticketStatus = document.getElementById("ticketStatus");
-      const ticketParty = document.getElementById("ticketParty");
+      if (animOverlay && envContainer) {
+        // Set letter text
+        if (letterGuestName) letterGuestName.textContent = guestName;
+        if (letterGuestMessage) letterGuestMessage.textContent = guestMessage;
 
-      if (ticketName) ticketName.textContent = guestName;
-      if (ticketCount) ticketCount.textContent = guestCount;
-      if (ticketStatus) ticketStatus.textContent = attendance;
-      if (ticketParty) ticketParty.textContent = party;
+        // Reset animation classes
+        envContainer.className = "envelope-container";
+        animOverlay.classList.add("is-active");
 
-      // Hide form, show boarding pass
-      form.style.display = "none";
-      if (boardingPass) {
-        boardingPass.style.display = "block";
-        boardingPass.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Step 1: Fold letter (slide down into envelope)
+        setTimeout(() => {
+          envContainer.classList.add("step-fold");
+        }, 1000);
+
+        // Step 2: Close flap
+        setTimeout(() => {
+          envContainer.classList.add("step-flap");
+        }, 3200);
+
+        // Step 2.5: Stamp heart seal
+        setTimeout(() => {
+          envContainer.classList.add("step-heart");
+        }, 4200);
+
+        // Step 3: Fly away
+        setTimeout(() => {
+          envContainer.classList.add("step-fly");
+        }, 5500);
+
+        // Step 4: Hide animation, show thank you message
+        setTimeout(() => {
+          animOverlay.classList.remove("is-active");
+          form.style.display = "none";
+          if (thankYou) {
+            thankYou.removeAttribute("hidden");
+            thankYou.style.display = "block";
+            thankYou.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 7800);
+      } else {
+        // Fallback if elements don't exist
+        form.style.display = "none";
+        if (thankYou) {
+          thankYou.removeAttribute("hidden");
+          thankYou.style.display = "block";
+          thankYou.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
     });
   };
@@ -371,7 +403,7 @@
 
     calendarDays.forEach((dayEl) => {
       const day = parseInt(dayEl.getAttribute("data-day"), 10);
-      if (day === 19 || day === 20) {
+      if (day === 19) {
         dayEl.classList.add("calendar-highlight");
       }
     });

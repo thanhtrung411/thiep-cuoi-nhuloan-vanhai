@@ -12,7 +12,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -75,7 +75,7 @@
     <!-- ─── 2. COVER ─── -->
     <section class="screen cover-screen" id="cover">
       <div class="cover-photo">
-        <img src="pic/web/chung.jpg" alt="Như Loan và Văn Hải" loading="eager">
+        <img src="pic/web/chung-5.jpg" alt="Như Loan và Văn Hải" loading="eager">
       </div>
       <div class="cover-content">
         <h1 class="script-name reveal-up">
@@ -89,15 +89,26 @@
 
     <!-- ─── 3. INVITATION ─── -->
     <section class="screen invite-screen" id="invitation">
+
+      <div class="family-card reveal-up">
+        <div class="family-bride">
+          <span>Nhà Gái</span>
+          <strong>Ông: Nguyễn Văn Vinh</strong>
+          <strong>Bà: Nguyễn Thị Thủy</strong>
+        </div>
+        <div class="family-groom">
+          <span>Nhà Trai</span>
+          <strong>Bà: Nguyễn Thị Phước</strong>
+        </div>
+      </div>
+
       <div class="invite-copy reveal-up">
         <p class="small-title">Trân trọng báo tin</p>
         <h2>Lễ Vu Quy</h2>
       </div>
 
-      <div class="ornament reveal-fade"></div>
-
       <div class="portrait-medallion reveal-up">
-        <img src="pic/web/chung-5.jpg" alt="Ảnh cưới Như Loan và Văn Hải" loading="lazy" style="object-position: center 25%;">
+        <img src="pic/web/chung-3.jpg" alt="Ảnh cưới Như Loan và Văn Hải" loading="lazy" style="object-position: center 25%;">
       </div>
 
       <div class="couple-names-block reveal-up">
@@ -106,22 +117,6 @@
         <h2 class="couple-name-script">Văn Hải</h2>
       </div>
 
-      <div class="invite-message reveal-fade">
-        <p>Được sự đồng ý và cho phép của hai bên gia đình, chúng tôi trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của chúng tôi.</p>
-      </div>
-
-      <div class="family-card reveal-up">
-        <div class="family-bride">
-          <span>Nhà Gái</span>
-          <strong>Ông: Nguyễn Văn Vinh</strong>
-          <strong>Bà: Nguyễn Thị Hủy</strong>
-        </div>
-        <div class="family-groom">
-          <span>Nhà Trai</span>
-          <strong>Bà: Nguyễn Thị Phước</strong>
-          <em>TDP Giáp Nhất, P. Hương Trà</em>
-        </div>
-      </div>
     </section>
 
     <!-- ─── 4. COUPLE ─── -->
@@ -130,7 +125,7 @@
       <h2 class="section-script reveal-up">Đôi Lứa</h2>
 
       <div class="couple-card bride-card reveal-left">
-        <img src="pic/web/codau.jpg" alt="Cô dâu Như Loan" loading="lazy">
+        <img src="pic/web/codau.jpg" alt="Cô dâu Như Loan" loading="lazy" style="object-position: center 19%;">
         <div>
           <span>Cô Dâu</span>
           <strong>Như Loan</strong>
@@ -139,7 +134,7 @@
       </div>
 
       <div class="couple-card groom-card reveal-left">
-        <img src="pic/web/chure.jpg" alt="Chú rể Văn Hải" loading="lazy">
+        <img src="pic/web/chure.jpg" alt="Chú rể Văn Hải" loading="lazy" style="object-position: center 19%;">
         <div>
           <span>Chú Rể</span>
           <strong>Văn Hải</strong>
@@ -189,9 +184,9 @@
           <div class="calendar-day">16</div>
           <div class="calendar-day">17</div>
           <div class="calendar-day">18</div>
-          <div class="calendar-day calendar-highlight" data-day="19" title="Tiệc Chung Vui">19</div>
+          <div class="calendar-day calendar-highlight calendar-highlight-main" data-day="19" title="Lễ Vu Quy & Tiệc Chung Vui">19</div>
           <!-- Week 4 -->
-          <div class="calendar-day calendar-highlight calendar-highlight-main" data-day="20" title="Lễ Vu Quy">20</div>
+          <div class="calendar-day" data-day="20" title="Lễ Thành Hôn">20</div>
           <div class="calendar-day">21</div>
           <div class="calendar-day">22</div>
           <div class="calendar-day">23</div>
@@ -206,57 +201,66 @@
           <div class="calendar-day">31</div>
         </div>
         <div class="calendar-legend">
-          <div class="legend-item"><span class="legend-dot legend-dot-main"></span> Lễ Vu Quy</div>
-          <div class="legend-item"><span class="legend-dot legend-dot-party"></span> Tiệc Chung Vui</div>
+          <div class="legend-item"><span class="legend-dot legend-dot-main"></span> Lễ Vu Quy & Tiệc</div>
         </div>
       </div>
 
       <!-- Event Cards -->
       <div class="event-cards">
         <div class="event-card reveal-up">
-          <div class="event-card-badge">Lễ Vu Quy</div>
+          <h3 class="event-card-title">Lễ Vu Quy</h3>
+          <p class="event-card-time">Vào Lúc 08:30</p>
           <div class="event-card-date">
-            <span class="event-day-name">Thứ Hai</span>
-            <span class="event-day-number">20</span>
-            <span class="event-month">Tháng 07, 2026</span>
-          </div>
-          <div class="event-card-details">
-            <div class="event-detail-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              <span>06:30</span>
+            <div class="date-side-left">
+              <span class="event-day-name">Chủ Nhật</span>
             </div>
-            <div class="event-detail-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              <span>Tư gia nhà gái</span>
+            <span class="event-day-number">19</span>
+            <div class="date-side-right">
+              <span class="event-month">07 - 2026</span>
             </div>
-            <p class="event-address">Gia Trung — Thôn Phước Yên<br>Xã Quảng Điền — TP. Huế</p>
-            <p class="event-lunar">(Nhằm ngày 07 tháng 06 năm Bính Ngọ)</p>
           </div>
-          <a href="https://maps.app.goo.gl/FdDjvgPwzgo6xtrNA" target="_blank" rel="noopener" class="map-button">
+          <p class="event-lunar">(Nhằm ngày 06 tháng 06 năm Bính Ngọ)</p>
+          <p class="event-address">Tư gia nhà gái<br>Gia Trung — Thôn Phước Yên — TP. Huế</p>
+          <a href="https://maps.app.goo.gl/3JcFhofVxB1iWAj18" target="_blank" rel="noopener" class="map-button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             Xem bản đồ
           </a>
         </div>
 
         <div class="event-card reveal-up">
-          <div class="event-card-badge badge-party">Tiệc Chung Vui</div>
+          <h3 class="event-card-title">Tiệc Chung Vui</h3>
+          <p class="event-card-time">Vào Lúc 11:00</p>
           <div class="event-card-date">
-            <span class="event-day-name">Chủ Nhật</span>
+            <div class="date-side-left">
+              <span class="event-day-name">Chủ Nhật</span>
+            </div>
             <span class="event-day-number">19</span>
-            <span class="event-month">Tháng 07, 2026</span>
-          </div>
-          <div class="event-card-details">
-            <div class="event-detail-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              <span>11:00</span>
+            <div class="date-side-right">
+              <span class="event-month">07 - 2026</span>
             </div>
-            <div class="event-detail-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-              <span>Tư gia nhà gái</span>
-            </div>
-            <p class="event-address">Gia Trung — Thôn Phước Yên<br>Xã Quảng Điền — TP. Huế</p>
-            <p class="event-lunar">(Nhằm ngày 06 tháng 06 năm Bính Ngọ)</p>
           </div>
+          <p class="event-lunar">(Nhằm ngày 06 tháng 06 năm Bính Ngọ)</p>
+          <p class="event-address">Tư gia nhà gái<br>Gia Trung — Thôn Phước Yên — TP. Huế</p>
+          <a href="https://maps.app.goo.gl/3JcFhofVxB1iWAj18" target="_blank" rel="noopener" class="map-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Xem bản đồ
+          </a>
+        </div>
+
+        <div class="event-card reveal-up">
+          <h3 class="event-card-title">Lễ Thành Hôn</h3>
+          <p class="event-card-time">Vào Lúc 06:30</p>
+          <div class="event-card-date">
+            <div class="date-side-left">
+              <span class="event-day-name">Thứ Hai</span>
+            </div>
+            <span class="event-day-number">20</span>
+            <div class="date-side-right">
+              <span class="event-month">07 - 2026</span>
+            </div>
+          </div>
+          <p class="event-lunar">(Nhằm ngày 07 tháng 06 năm Bính Ngọ)</p>
+          <p class="event-address">Tư gia nhà trai<br>TDP Giáp Nhất — P. Hương Trà — TP. Huế</p>
           <a href="https://maps.app.goo.gl/FdDjvgPwzgo6xtrNA" target="_blank" rel="noopener" class="map-button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             Xem bản đồ
@@ -297,13 +301,13 @@
 
       <div class="gallery-grid">
         <figure class="gallery-photo gallery-tall reveal-up">
-          <img src="pic/web/chung-5.jpg" alt="Ảnh cưới 1" loading="lazy">
+          <img src="pic/web/chung-3.jpg" alt="Ảnh cưới 1" loading="lazy">
         </figure>
         <figure class="gallery-photo reveal-fade">
           <img src="pic/web/chung-2.jpg" alt="Ảnh cưới 2" loading="lazy">
         </figure>
         <figure class="gallery-photo reveal-fade">
-          <img src="pic/web/chung-3.jpg" alt="Ảnh cưới 3" loading="lazy">
+          <img src="pic/web/chung.jpg" alt="Ảnh cưới 3" loading="lazy">
         </figure>
         <figure class="gallery-photo gallery-wide reveal-up">
           <img src="pic/web/chung-4.jpg" alt="Ảnh cưới 4" loading="lazy">
@@ -374,37 +378,40 @@
         <button type="submit" class="primary-button">Xác Nhận Tham Dự</button>
       </form>
 
-      <!-- Boarding Pass (hidden until RSVP submitted) -->
-      <div class="boarding-pass" id="boardingPass" hidden>
-        <div class="ticket-body">
-          <p class="ticket-label">Thiệp Xác Nhận</p>
-          <strong id="ticketName">Khách mời</strong>
-          <div class="ticket-meta">
-            <div>
-              <span class="ticket-caption">Số khách</span>
-              <strong id="ticketCount">1</strong>
-            </div>
-            <div>
-              <span class="ticket-caption">Trạng thái</span>
-              <strong id="ticketStatus">Sẽ tham dự</strong>
-            </div>
-          </div>
-          <div>
-            <span class="ticket-caption">Nơi tham dự</span>
-            <strong id="ticketParty">Tiệc Cưới Nhà Gái</strong>
-          </div>
-          <div class="ticket-event">
-            <span class="ticket-caption">Sự kiện</span>
-            <strong>Lễ cưới Như Loan & Văn Hải</strong>
-            <small>20/07/2026 — TP. Huế</small>
-          </div>
-        </div>
-        <div class="ticket-stub">
-          <img class="qr-code" src="pic/web/qr-checkin.png" alt="QR Check-in">
-          <span>SCAN ĐỂ CHECK-IN</span>
-        </div>
+      <!-- Thank You Message (hidden until RSVP submitted) -->
+      <div class="rsvp-thankyou" id="rsvpThankYou" hidden>
+        <p class="thankyou-title">Gửi lời chúc thành công! ❤️</p>
+        <p class="thankyou-msg">Cảm ơn bạn rất nhiều vì lời chúc ngọt ngào dành cho cô dâu & chú rể.</p>
       </div>
     </section>
+
+    <!-- RSVP Letter Animation Overlay -->
+    <div class="rsvp-anim-overlay" id="rsvpAnimOverlay">
+      <div class="envelope-container" id="envContainer">
+        <!-- The Letter -->
+        <div class="letter-paper">
+          <div class="letter-inner">
+            <h4 class="letter-title">Lời Chúc</h4>
+            <p class="letter-guest"><strong id="letterGuestName"></strong> gửi lời chúc:</p>
+            <div class="letter-msg-box">
+              <p class="letter-message" id="letterGuestMessage"></p>
+            </div>
+            <p class="letter-closing">Cảm ơn bạn! ❤️</p>
+          </div>
+        </div>
+        <!-- The Envelope Parts -->
+        <div class="env-back"></div>
+        <svg class="env-front" viewBox="0 0 280 160" width="280" height="160">
+          <polygon points="0,0 140,80 0,160" fill="#e1b4bc" />
+          <polygon points="280,0 140,80 280,160" fill="#e1b4bc" />
+          <polygon points="0,160 140,80 280,160" fill="#ecc9cf" />
+        </svg>
+        <svg class="env-flap" viewBox="0 0 280 90" width="280" height="90">
+          <polygon points="0,90 140,0 280,90" fill="#e1b4bc" />
+        </svg>
+        <div class="env-heart">❤️</div>
+      </div>
+    </div>
 
     <!-- ─── 8. GIFT ─── -->
     <section class="screen gift-screen" id="gift">
@@ -415,15 +422,7 @@
 
       <p class="gift-note reveal-fade">Rất hân hạnh được gặp và đón tiếp các bạn trong ngày vui của gia đình chúng tôi.</p>
 
-      <div class="gift-cards reveal-up">
-        <div class="gift-card">
-          <div class="gift-card-header">Mừng cưới đến<br><strong>Chú Rể</strong></div>
-          <img src="pic/web/qr-checkin.png" alt="QR mừng cưới chú rể" class="gift-qr" loading="lazy">
-          <a href="pic/web/qr-checkin.png" download class="gift-download">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Tải ảnh QR
-          </a>
-        </div>
+      <div class="gift-cards gift-cards-single reveal-up">
         <div class="gift-card">
           <div class="gift-card-header">Mừng cưới đến<br><strong>Cô Dâu</strong></div>
           <img src="pic/web/qr-checkin.png" alt="QR mừng cưới cô dâu" class="gift-qr" loading="lazy">
@@ -445,7 +444,7 @@
         Cảm ơn bạn đã dành thời gian quý báu.<br>
         Sự hiện diện của bạn là món quà ý nghĩa nhất đối với chúng tôi. ❤️
       </p>
-      <p class="thank-couple reveal-fade">Như Loan & Văn Hải</p>
+      <p class="thank-couple reveal-fade">Như Loan <span class="thank-amp">&</span> Văn Hải</p>
     </section>
 
   </main>
