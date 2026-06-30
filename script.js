@@ -302,7 +302,7 @@
       const guestParty = formData.get("guestParty") || "Tiệc Cưới Nhà Gái";
       const guestCount = formData.get("guestCount") || "1";
 
-      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxcCjAW1Q3tDJmosHV6Aqas2ec1_enDiY5zKqdbsIIMAXepLGJ_B_mkSvcci7DAgJ4K/exec";
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyOs8IhJQzJj2F4qiNY3sjiYxj86FpAYFx6A2Nw-d1Mw6ljLDysQUA6D8oTlhzLYmaT/exec";
 
       // Chuyển dữ liệu sang URLSearchParams để tương thích hoàn toàn với chế độ no-cors trên GitHub Pages
       const params = new URLSearchParams({
