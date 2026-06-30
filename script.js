@@ -298,6 +298,26 @@
       const formData = new FormData(form);
       const guestName = formData.get("guestName") || "Khách mời";
       const guestMessage = formData.get("guestMessage") || "Chúc hai bạn trăm năm hạnh phúc, bạc đầu nghĩa phu thê! ❤️";
+      const attendance = formData.get("attendance") || "Sẽ tham dự";
+      const guestParty = formData.get("guestParty") || "Tiệc Cưới Nhà Gái";
+      const guestCount = formData.get("guestCount") || "1";
+
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxcCjAW1Q3tDJmosHV6Aqas2ec1_enDiY5zKqdbsIIMAXepLGJ_B_mkSvcci7DAgJ4K/exec";
+
+      fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          guestName: guestName,
+          guestMessage: guestMessage,
+          attendance: attendance,
+          guestParty: guestParty,
+          guestCount: guestCount
+        })
+      }).catch(err => console.error("Lỗi gửi Google Sheet:", err));
 
       if (animOverlay && envContainer) {
         // Set letter text
