@@ -14,6 +14,11 @@
  * 8. Bấm Triển khai, cấp quyền truy cập cho tài khoản và copy URL Web App thu được dán vào script.js trên website.
  */
 
+// Xử lý các yêu cầu GET (dùng phương thức GET gửi dữ liệu qua URL để tránh lỗi chuyển hướng của POST trên HTTPS)
+function doGet(e) {
+  return doPost(e);
+}
+
 function doPost(e) {
   // Cài đặt Headers hỗ trợ CORS trong trường hợp gọi fetch thông thường
   var corsHeaders = {

@@ -302,7 +302,7 @@
       const guestParty = formData.get("guestParty") || "Tiệc Cưới Nhà Gái";
       const guestCount = formData.get("guestCount") || "1";
 
-      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyOs8IhJQzJj2F4qiNY3sjiYxj86FpAYFx6A2Nw-d1Mw6ljLDysQUA6D8oTlhzLYmaT/exec";
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzME5Fhqp0iQIh_sbDcQ61d6IhbfiFLc_0TeE4ot_TIOw_FBf1b-yZ-z_mAvSpxaxa0/exec";
 
       // Chuyển dữ liệu sang URLSearchParams để tương thích hoàn toàn với chế độ no-cors trên GitHub Pages
       const params = new URLSearchParams({
@@ -313,13 +313,9 @@
         guestCount: guestCount
       });
 
-      fetch(GOOGLE_SHEET_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: params.toString()
+      fetch(GOOGLE_SHEET_URL + "?" + params.toString(), {
+        method: "GET",
+        mode: "no-cors"
       }).catch(err => console.error("Lỗi gửi Google Sheet:", err));
 
       if (animOverlay && envContainer) {
