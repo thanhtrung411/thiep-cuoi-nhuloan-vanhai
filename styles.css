@@ -427,18 +427,61 @@ button { border: 0; cursor: pointer; }
 }
 
 .portrait-medallion {
+  position: relative;
   width: 220px;
   height: 275px;
   margin: 0 auto;
-  overflow: hidden;
-  border-radius: 110px 110px 24px 24px;
-  box-shadow: 0 12px 28px rgba(61, 16, 25, 0.15), 0 4px 10px rgba(0, 0, 0, 0.06);
+  overflow: visible; /* Cho phép băng keo tràn ra ngoài */
+  background: #fffdfa; /* Giấy ảnh màu trắng ngà */
+  padding: 6px 6px 20px 6px; /* Tạo viền trắng ảnh Polaroid */
+  border-radius: 110px 110px 16px 16px;
+  box-shadow: 0 12px 28px rgba(61, 16, 25, 0.12), 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: rotate(-1.2deg); /* Nghiêng nhẹ dễ thương */
 }
 
 .portrait-medallion img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 104px 104px 8px 8px; /* Bo viền cho ảnh khớp với khung cổng vòm */
+}
+
+/* Băng dính Washi hồng dễ thương dán phía trên cổng vòm */
+.portrait-medallion::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 55px;
+  height: 16px;
+  background: rgba(225, 180, 188, 0.7); /* Màu hồng Washi */
+  backdrop-filter: blur(1px);
+  border-left: 1.5px dashed rgba(255, 255, 255, 0.4);
+  border-right: 1.5px dashed rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Bông hoa anh đào trang trí dễ thương ở góc khung ảnh */
+.portrait-flower {
+  position: absolute;
+  bottom: -12px;
+  right: -8px; /* Đặt ở góc dưới bên phải để đối xứng và tránh đè biểu tượng nhạc */
+  font-size: 1.8rem;
+  z-index: 3;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+  animation: floatFlower 3.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes floatFlower {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateY(-5px) rotate(12deg) scale(1.05);
+  }
 }
 
 .couple-names-block {
@@ -584,6 +627,7 @@ button { border: 0; cursor: pointer; }
   font-size: 0.82rem;
   line-height: 1.55;
   font-style: italic;
+  text-align: justify;
 }
 
 .bride-card, .groom-card { border-radius: 120px 120px 20px 20px; }
@@ -894,9 +938,9 @@ button { border: 0; cursor: pointer; }
    ═══════════════════════════════════════════ */
 .gallery-screen {
   min-height: 800px;
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding: 48px 22px; /* Trả về padding đều hai bên 22px chuẩn */
   background: var(--paper);
+  overflow-x: hidden; /* Ngăn chặn hoàn toàn tràn viền ngang */
 }
 
 .section-heading {
@@ -908,42 +952,147 @@ button { border: 0; cursor: pointer; }
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: 1.16fr 0.84fr;
-  gap: 0.6rem;
+  grid-template-columns: 1fr 1fr; /* Sử dụng 2 cột bằng nhau để tránh lỗi co giãn lệch */
+  gap: 0.8rem;
+  padding: 0.5rem 0.2rem;
 }
 
 .gallery-photo {
+  position: relative;
   margin: 0;
-  overflow: hidden;
-  background: #eadfd5;
-  aspect-ratio: 1;
-  border-radius: 16px;
-}
-
-.gallery-tall {
-  grid-row: span 2;
-  aspect-ratio: auto;
-  border-radius: 110px 110px 16px 16px;
-}
-
-.gallery-wide {
-  grid-column: 1 / -1;
-  aspect-ratio: auto;
-}
-
-.gallery-wide img {
-  height: auto;
+  overflow: visible; /* Cho phép băng keo tràn ra ngoài */
+  background: #fffdfa; /* Màu trắng ngà của giấy ảnh */
+  padding: 6px 6px 16px 6px; /* Chừa lề dưới kiểu ảnh Polaroid */
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(121, 37, 54, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+  aspect-ratio: 4 / 5; /* Đổi sang tỷ lệ dọc 4:5 hiện đại, đỡ bị mất góc ảnh */
+  min-width: 0; /* Ép trình duyệt cho phép co nhỏ ô lưới khi cần, tránh đẩy viền */
+  width: 100%;
 }
 
 .gallery-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 25%; /* Giữ khuôn mặt luôn nằm giữa khung ảnh không bị cắt mất đầu */
+  border-radius: 8px; /* Bo góc ảnh bên trong nhẹ hơn */
   cursor: pointer;
-  transition: transform 0.7s var(--ease);
+  transition: transform 0.5s ease;
 }
 
-.gallery-photo:hover img { transform: scale(1.04); }
+.gallery-tall {
+  grid-row: span 2;
+  aspect-ratio: auto; /* Chiều cao tự giãn theo 2 hàng grid */
+  border-radius: 110px 110px 12px 12px;
+  padding: 6px 6px 16px 6px;
+}
+
+.gallery-tall img {
+  border-radius: 104px 104px 8px 8px;
+}
+
+.gallery-wide {
+  grid-column: 1 / -1;
+  aspect-ratio: 3 / 2; /* Khóa tỷ lệ ảnh ngang 3:2 đẹp mắt */
+  padding: 6px 6px 14px 6px;
+  border-radius: 16px;
+}
+
+.gallery-wide img {
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* Hiệu ứng nghiêng nhẹ ngẫu nhiên (Scrapbook) - Giảm góc nghiêng để tránh đẩy viền */
+.gallery-photo:nth-child(odd) {
+  transform: rotate(-0.8deg);
+}
+
+.gallery-photo:nth-child(even) {
+  transform: rotate(0.6deg);
+}
+
+/* Giữ các khối lớn ngay ngắn hơn chút */
+.gallery-photo.gallery-wide,
+.gallery-photo.gallery-tall:first-child {
+  transform: rotate(0.2deg);
+}
+
+.gallery-photo:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: 0 16px 36px rgba(61, 16, 25, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+}
+
+/* Băng dính Washi dễ thương trang trí trên góc ảnh - Giảm size băng keo và nét đứt */
+.gallery-photo:nth-child(3n+1)::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 48px;
+  height: 14px;
+  background: rgba(225, 180, 188, 0.65); /* Băng keo hồng pastel */
+  backdrop-filter: blur(1px);
+  border-left: 1px dashed rgba(255, 255, 255, 0.4);
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.gallery-photo:nth-child(4n)::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 42px;
+  height: 14px;
+  background: rgba(194, 154, 98, 0.5); /* Băng keo vàng nhạt */
+  backdrop-filter: blur(1px);
+  border-left: 1px dashed rgba(255, 255, 255, 0.4);
+  border-right: 2px dashed rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Trang trí dễ thương (Stickers) cho Album ảnh cưới */
+.photo-deco {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.12));
+  animation: floatDeco 3.8s ease-in-out infinite alternate;
+}
+
+@keyframes floatDeco {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-4px) rotate(8deg);
+  }
+}
+
+.deco-heart {
+  bottom: -6px;
+  right: -6px;
+  font-size: 1.3rem;
+}
+
+.deco-flower {
+  bottom: -8px;
+  left: -8px;
+  font-size: 1.4rem;
+}
+
+.deco-leaf {
+  top: -8px;
+  right: -8px;
+  font-size: 1.3rem;
+}
 
 .gallery-quote {
   margin: 1.5rem auto 0;
@@ -1267,7 +1416,7 @@ button { border: 0; cursor: pointer; }
 
 .gift-cards-single {
   grid-template-columns: 1fr;
-  max-width: 220px;
+  max-width: 260px; /* Tăng chiều rộng lên 260px để số tài khoản và nút copy nằm vừa vặn trên 1 dòng */
   margin: 0 auto;
 }
 
@@ -1327,6 +1476,144 @@ button { border: 0; cursor: pointer; }
 }
 
 .gift-download:hover { background: var(--wine-dark); }
+
+/* Premium Gift Box Card */
+.premium-gift-card {
+  position: relative;
+  background: #fffdfa;
+  border: 1px solid var(--gold-light);
+  padding: 1.8rem 1.4rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(162, 85, 104, 0.08);
+}
+
+/* Nơ hồng trang trí trên đầu thiệp */
+.gift-card-decor {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+}
+
+.gift-qr-container {
+  background: #fff;
+  padding: 8px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(194, 154, 98, 0.25); /* Viền màu nhũ vàng thanh lịch */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto 0.8rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.gift-qr-container .gift-qr {
+  width: 140px;
+  height: 140px;
+  border: 0;
+  padding: 0;
+  display: block;
+}
+
+/* Thông tin chi tiết */
+.gift-details {
+  width: 100%;
+  display: grid;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.gift-details .bank-name {
+  font-family: Quicksand, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--gold); /* Màu nhũ vàng */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.gift-details .account-name {
+  font-family: Quicksand, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--wine-dark);
+  margin: 0;
+}
+
+.gift-details .account-number {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.0rem; /* Giảm nhẹ cỡ chữ số tài khoản một chút để vừa vặn hơn */
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  white-space: nowrap; /* Khóa không cho số tài khoản tự xuống dòng ở các khoảng trắng */
+}
+
+/* Hàng ngang chứa số tài khoản và nút Copy */
+.account-number-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0.2rem 0;
+  width: 100%;
+  flex-wrap: nowrap; /* Khóa không cho các phần tử con xuống dòng */
+}
+
+.gift-details .bank-branch {
+  font-family: Quicksand, sans-serif;
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Nút Copy dạng con nhộng nhỏ gọn nằm cùng dòng với số tài khoản */
+.copy-acc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.2rem 0.5rem;
+  background: #fdf5f6; /* Nền hồng pastel siêu nhẹ */
+  color: var(--wine);
+  border: 1px solid rgba(199, 125, 143, 0.25);
+  border-radius: 50px;
+  font-family: Quicksand, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border-style: solid;
+  white-space: nowrap;
+}
+
+.copy-acc-btn:hover {
+  background: var(--wine);
+  color: #fff;
+  border-color: var(--wine);
+}
+
+.copy-acc-btn.copied {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+.gift-transfer-note {
+  font-family: Quicksand, sans-serif;
+  font-size: 0.65rem;
+  color: var(--wine);
+  font-style: italic;
+  margin: 0.4rem auto 0;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0.85;
+  max-width: 90%;
+}
 
 /* ═══════════════════════════════════════════
    9. THANK YOU

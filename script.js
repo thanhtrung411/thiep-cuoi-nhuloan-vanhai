@@ -426,7 +426,7 @@
 
     calendarDays.forEach((dayEl) => {
       const day = parseInt(dayEl.getAttribute("data-day"), 10);
-      if (day === 19) {
+      if (day === 19 || day === 20) {
         dayEl.classList.add("calendar-highlight");
       }
     });
@@ -443,7 +443,7 @@
     initCountdown();
     initRSVP();
     initLightbox();
-    initCalendarHighlight();
+    // initCalendarHighlight();
   };
 
   if (document.readyState === "loading") {
@@ -452,3 +452,24 @@
     init();
   }
 })();
+
+// Hàm sao chép số tài khoản nhanh dành cho khách mời (Global Scope)
+window.copyAccountNumber = (number, btn) => {
+  navigator.clipboard.writeText(number).then(() => {
+    const originalText = btn.innerHTML;
+    // Thay nút bằng dấu tích xanh báo thành công
+    btn.innerHTML = `
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Copied
+    `;
+    btn.classList.add("copied");
+    
+    // Khôi phục lại sau 2 giây
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.classList.remove("copied");
+    }, 2000);
+  }).catch(err => {
+    console.error("Lỗi khi sao chép STK:", err);
+  });
+};
