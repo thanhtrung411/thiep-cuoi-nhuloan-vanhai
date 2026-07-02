@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ═══════════════════════════════════════════
    THIỆP CƯỚI — NHƯ LOAN ❤️ VĂN HẢO
    Design Tokens & Reset
@@ -369,7 +370,7 @@ button { border: 0; cursor: pointer; }
 .script-name {
   margin: 0;
   font-family: "Great Vibes", cursive;
-  font-size: clamp(4.4rem, 20vw, 6rem);
+  font-size: clamp(3.2rem, 14vw, 4.6rem);
   font-weight: 400;
   line-height: 0.85;
   text-shadow: 0 16px 40px rgba(0,0,0,0.35);
@@ -965,7 +966,7 @@ button { border: 0; cursor: pointer; }
   padding: 6px 6px 16px 6px; /* Chừa lề dưới kiểu ảnh Polaroid */
   border-radius: 12px;
   box-shadow: 0 8px 22px rgba(121, 37, 54, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), box-shadow 0.5s ease;
   aspect-ratio: 4 / 5; /* Đổi sang tỷ lệ dọc 4:5 hiện đại, đỡ bị mất góc ảnh */
   min-width: 0; /* Ép trình duyệt cho phép co nhỏ ô lưới khi cần, tránh đẩy viền */
   width: 100%;
@@ -1004,22 +1005,45 @@ button { border: 0; cursor: pointer; }
   border-radius: 10px;
 }
 
-/* Hiệu ứng nghiêng nhẹ ngẫu nhiên (Scrapbook) - Giảm góc nghiêng để tránh đẩy viền */
+/* Album Gallery Scroll Reveal Initial State */
+.gallery-photo {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Hidden state (translated + rotated) */
 .gallery-photo:nth-child(odd) {
-  transform: rotate(-0.8deg);
+  transform: translate3d(0, 42px, 0) rotate(-0.8deg);
 }
 
 .gallery-photo:nth-child(even) {
-  transform: rotate(0.6deg);
+  transform: translate3d(0, 42px, 0) rotate(0.6deg);
 }
 
-/* Giữ các khối lớn ngay ngắn hơn chút */
 .gallery-photo.gallery-wide,
 .gallery-photo.gallery-tall:first-child {
-  transform: rotate(0.2deg);
+  transform: translate3d(0, 42px, 0) rotate(0.2deg);
 }
 
-.gallery-photo:hover {
+/* Active state (translated back + rotated) */
+.gallery-photo.active:nth-child(odd) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(-0.8deg);
+}
+
+.gallery-photo.active:nth-child(even) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0.6deg);
+}
+
+.gallery-photo.active.gallery-wide,
+.gallery-photo.active.gallery-tall:first-child {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0.2deg);
+}
+
+/* Hiệu ứng di chuột vào tấm ảnh */
+.gallery-photo.active:hover {
   transform: scale(1.05) rotate(0deg) !important;
   box-shadow: 0 16px 36px rgba(61, 16, 25, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
   z-index: 5;
@@ -1711,7 +1735,7 @@ button { border: 0; cursor: pointer; }
 
 @media (max-width: 360px) {
   .screen { padding-inline: 16px; }
-  .script-name { font-size: 4rem; }
+  .script-name { font-size: 3.2rem; }
   .section-script, .invite-copy h2 { font-size: 3rem; }
   .couple-name-script { font-size: 2.6rem; }
   .gate-names { font-size: 2.8rem; }
