@@ -1,5 +1,5 @@
 /**
- * Google Apps Script - RSVP Handler
+ * Google Apps Script - RSVP Handler (Upgraded & Fixed Version)
  * 
  * HƯỚNG DẪN SỬ DỤNG:
  * 1. Mở file Google Sheet của bạn.
@@ -11,25 +11,60 @@
  * 7. Cài đặt cấu hình:
  *    - Thực thi dưới danh nghĩa: "Tôi (Email của bạn)"
  *    - Ai có quyền truy cập: "Bất kỳ ai (Anyone)"
- * 8. Bấm Triển khai, cấp quyền truy cập cho tài khoản và copy URL Web App thu được dán vào script.js trên website.
+ * 8. Bấm Triển khai, cấp quyền truy cập cho tài khoản và copy URL Web App mới dán vào website.
  */
 
-// Xử lý các yêu cầu GET (dùng phương thức GET gửi dữ liệu qua URL để tránh lỗi chuyển hướng của POST trên HTTPS)
+// Xử lý các yêu cầu GET (Hỗ trợ cả Ghi RSVP và Đọc bộ bài RSVP)
 function doGet(e) {
+  var params = e.parameter;
+  var action = params.action;
+  
+  // NẾU LÀ YÊU CẦU ĐỌC DỮ LIỆU ĐỂ HIỂN THỊ THIỆP XÁC NHẬN
+  if (action === "read") {
+    var password = params.password;
+    if (password !== "19072026") {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Mật khẩu xác thực không chính xác!" }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    try {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      var data = sheet.getDataRange().getValues();
+      var rsvps = [];
+      
+      // Quét từ dòng thứ 2 (bỏ qua dòng tiêu đề)
+      for (var i = 1; i < data.length; i++) {
+        var row = data[i];
+        if (row[1]) { // Nếu cột B (Tên khách mời) có dữ liệu
+          rsvps.push({
+            name: row[1],
+            message: row[2] || "",
+            attendance: row[3] || "Sẽ tham dự",
+            party: row[4] || "",
+            guests: row[5] || "1",
+            time: row[6] || ""
+          });
+        }
+      }
+      
+      // Đảo ngược thứ tự để thiệp mới gửi xếp lên trên cùng bộ bài
+      rsvps.reverse();
+      
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", data: rsvps }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    } catch (err) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  
+  // MẶC ĐỊNH: Chuyển hướng sang ghi dữ liệu RSVP
   return doPost(e);
 }
 
 function doPost(e) {
-  // Cài đặt Headers hỗ trợ CORS trong trường hợp gọi fetch thông thường
-  var corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Max-Age": "86400"
-  };
-
   try {
-    // 1. Lấy dữ liệu gửi từ Website
+    // Lấy dữ liệu gửi từ Website
     var data = e.parameter;
     if (e.postData && e.postData.contents) {
       data = JSON.parse(e.postData.contents);
@@ -40,27 +75,24 @@ function doPost(e) {
     var lastRow = sheet.getLastRow();
     var nextRow = startRow;
     
-    // 2. Tìm dòng trống kế tiếp chưa có số STT (quét từ dòng 2 đi xuống)
+    // Tìm dòng trống kế tiếp chưa có số STT
     if (lastRow >= startRow) {
-      var values = sheet.getRange(1, 1, lastRow, 1).getValues(); // Quét cột A (STT)
+      var values = sheet.getRange(1, 1, lastRow, 1).getValues(); // Quét cột A
       for (var i = startRow - 1; i < lastRow; i++) {
         if (values[i][0] === "" || values[i][0] === null || values[i][0] === undefined) {
           nextRow = i + 1;
           break;
         }
       }
-      // Nếu duyệt hết từ dòng 2 đến dòng cuối cùng mà dòng nào cũng có STT, thì lấy dòng kế tiếp sau dòng cuối cùng
       if (nextRow === startRow && values[startRow - 1][0] !== "") {
         nextRow = lastRow + 1;
       }
     }
     
-    // 3. Tính số thứ tự (STT) dựa trên dòng điền dữ liệu
     var stt = nextRow - 1; 
     var timestamp = new Date();
     
-    // 4. Ghi thông tin vào dòng được chọn
-    // Cột A: STT, Cột B: Họ và tên, Cột C: Lời chúc, Cột D: Tham dự?, Cột E: Nơi tham dự, Cột F: Số người, Cột G: Thời gian gửi
+    // Ghi thông tin vào dòng được chọn
     sheet.getRange(nextRow, 1).setValue(stt);
     sheet.getRange(nextRow, 2).setValue(data.guestName || "Khách mời");
     sheet.getRange(nextRow, 3).setValue(data.guestMessage || "");
@@ -69,7 +101,6 @@ function doPost(e) {
     sheet.getRange(nextRow, 6).setValue(data.guestCount || "1");
     sheet.getRange(nextRow, 7).setValue(Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "HH:mm:ss dd/MM/yyyy"));
     
-    // Trả về kết quả JSON thành công
     var response = {
       "status": "success",
       "row": nextRow,
@@ -77,32 +108,15 @@ function doPost(e) {
     };
     
     return ContentService.createTextOutput(JSON.stringify(response))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(corsHeaders);
+      .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
-    // Trả về lỗi nếu có
     var errorResponse = {
       "status": "error",
       "message": error.toString()
     };
     
     return ContentService.createTextOutput(JSON.stringify(errorResponse))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders(corsHeaders);
+      .setMimeType(ContentService.MimeType.JSON);
   }
-}
-
-// Xử lý các yêu cầu preflight OPTIONS để tránh lỗi CORS trên các trình duyệt khắt khe
-function doOptions(e) {
-  var corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Max-Age": "86400"
-  };
-  
-  return ContentService.createTextOutput("")
-    .setMimeType(ContentService.MimeType.TEXT)
-    .setHeaders(corsHeaders);
 }

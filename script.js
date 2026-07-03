@@ -302,7 +302,7 @@
       const guestParty = formData.get("guestParty") || "Tiệc Cưới Nhà Gái";
       const guestCount = formData.get("guestCount") || "1";
 
-      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzME5Fhqp0iQIh_sbDcQ61d6IhbfiFLc_0TeE4ot_TIOw_FBf1b-yZ-z_mAvSpxaxa0/exec";
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyZ8MYvg7-DJfcgSXSuXdMJMfFpd-AW1TDU13kVkhFkInsbDEpDxyVGWREzA0i6ZEvC/exec";
 
       // Chuyển dữ liệu sang URLSearchParams để tương thích hoàn toàn với chế độ no-cors trên GitHub Pages
       const params = new URLSearchParams({
@@ -335,17 +335,17 @@
         // Step 2: Close flap
         setTimeout(() => {
           envContainer.classList.add("step-flap");
-        }, 3200);
+        }, 3100);
 
         // Step 2.5: Stamp heart seal
         setTimeout(() => {
           envContainer.classList.add("step-heart");
-        }, 4200);
+        }, 3700);
 
         // Step 3: Fly away
         setTimeout(() => {
           envContainer.classList.add("step-fly");
-        }, 5500);
+        }, 4200);
 
         // Step 4: Hide animation, show thank you message
         setTimeout(() => {
@@ -356,7 +356,7 @@
             thankYou.style.display = "block";
             thankYou.scrollIntoView({ behavior: "smooth", block: "center" });
           }
-        }, 7800);
+        }, 5600);
       } else {
         // Fallback if elements don't exist
         form.style.display = "none";

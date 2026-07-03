@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hộp Thư Xác Nhận Lời Chúc ❤️ Như Loan & Văn Hảo</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="cards.css">
+</head>
+<body>
+
+  <!-- Floating background decorations -->
+  <div class="bg-decorations">
+    <span class="decor-item item-1">🌸</span>
+    <span class="decor-item item-2">💖</span>
+    <span class="decor-item item-3">🌿</span>
+    <span class="decor-item item-4">🎀</span>
+  </div>
+
+  <main class="page-container">
+
+    <!-- 1. MÀN HÌNH KHÓA XÁC THỰC MẬT KHẨU -->
+    <section class="auth-section" id="authSection">
+      <div class="auth-card">
+        <div class="auth-icon-wrapper">
+          <span class="auth-icon">🔒</span>
+        </div>
+        <h1 class="auth-title">Hộp Thư Lời Chúc</h1>
+        <p class="auth-desc">Vui lòng nhập mật khẩu bí mật (ngày cưới của cô dâu & chú rể) để mở khóa danh sách thiệp xác nhận tham dự.</p>
+        
+        <form class="auth-form" id="authForm" onsubmit="event.preventDefault(); handleAuthSubmit();">
+          <div class="input-group">
+            <input type="password" id="passwordInput" placeholder="Nhập mật khẩu (ví dụ: ddMMyyyy)..." autocomplete="current-password" required>
+            <span class="input-line"></span>
+          </div>
+          <button type="submit" class="auth-button" id="authBtn">Mở khóa hộp thư</button>
+        </form>
+        
+        <p class="auth-error" id="authError"></p>
+      </div>
+    </section>
+
+    <!-- 2. MÀN HÌNH BỘ BÀI LỜI CHÚC (RSVP DECK) -->
+    <section class="deck-section is-hidden" id="deckSection">
+      <div class="deck-header">
+        <a href="index.html" class="back-home-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Trở về thiệp cưới
+        </a>
+        <div class="deck-counter" id="deckCounter">0/0</div>
+      </div>
+
+      <!-- Khung chứa xấp bài -->
+      <div class="deck-container">
+        <div class="deck-wrapper" id="deckWrapper">
+          <!-- Các lá bài RSVP sẽ được sinh động bằng Javascript vào đây -->
+          
+          <!-- Màn hình chờ Loading -->
+          <div class="deck-loading" id="deckLoading">
+            <div class="spinner"></div>
+            <p>Đang mở hộp thư bí mật...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút điều khiển lướt bài ở cuối (Tinder-like controls) -->
+      <div class="deck-controls is-hidden" id="deckControls">
+        <button class="control-btn btn-left" id="btnLeft" title="Vuốt sang trái" aria-label="Vuốt trái">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="12" x2="6" y2="12"/><polyline points="12 18 6 12 12 6"/></svg>
+        </button>
+        
+        <span class="control-hint">Bấm nút hoặc click trực tiếp vào lá bài để xem thiệp tiếp theo</span>
+        
+        <button class="control-btn btn-right" id="btnRight" title="Vuốt sang phải" aria-label="Vuốt phải">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="12" x2="18" y2="12"/><polyline points="12 6 18 12 12 18"/></svg>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script liên kết -->
+  <script src="cards.js"></script>
+</body>
+</html>

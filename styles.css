@@ -993,6 +993,20 @@ button { border: 0; cursor: pointer; }
   border-radius: 104px 104px 8px 8px;
 }
 
+.gallery-mirror {
+  grid-column: 1 / -1;
+  aspect-ratio: 1 / 1.35; /* Dáng gương đứng vòm cao sang trọng */
+  border-radius: 180px 180px 16px 16px;
+  padding: 8px 8px 24px 8px;
+  background: #fffdfa;
+  box-shadow: 0 16px 40px rgba(121, 37, 54, 0.09), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.gallery-mirror img {
+  border-radius: 172px 172px 10px 10px;
+  border: 1px solid rgba(194, 154, 98, 0.35); /* Khung viền chỉ vàng mảnh bao quanh gương */
+}
+
 .gallery-wide {
   grid-column: 1 / -1;
   aspect-ratio: 3 / 2; /* Khóa tỷ lệ ảnh ngang 3:2 đẹp mắt */
@@ -1021,6 +1035,7 @@ button { border: 0; cursor: pointer; }
 }
 
 .gallery-photo.gallery-wide,
+.gallery-photo.gallery-mirror,
 .gallery-photo.gallery-tall:first-child {
   transform: translate3d(0, 42px, 0) rotate(0.2deg);
 }
@@ -1037,6 +1052,7 @@ button { border: 0; cursor: pointer; }
 }
 
 .gallery-photo.active.gallery-wide,
+.gallery-photo.active.gallery-mirror,
 .gallery-photo.active.gallery-tall:first-child {
   opacity: 1;
   transform: translate3d(0, 0, 0) rotate(0.2deg);
@@ -1868,7 +1884,7 @@ button { border: 0; cursor: pointer; }
   width: 280px;
   height: 90px;
   transform-origin: bottom;
-  transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1), filter 1.2s ease;
+  transition: transform 0.7s cubic-bezier(0.45, 0, 0.55, 1), filter 0.7s ease;
   z-index: 1;
   pointer-events: none;
   filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
@@ -1886,7 +1902,7 @@ button { border: 0; cursor: pointer; }
 }
 
 .envelope-container.step-fly {
-  animation: flyAway 2.0s ease-in-out forwards;
+  animation: flyAway 1.2s ease-in-out forwards;
 }
 
 /* Red Heart Seal */
@@ -1903,7 +1919,7 @@ button { border: 0; cursor: pointer; }
   pointer-events: none;
   opacity: 0;
   transform: scale(3.5);
-  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .envelope-container.step-heart .env-heart {

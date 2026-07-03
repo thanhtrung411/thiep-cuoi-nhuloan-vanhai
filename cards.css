@@ -1,0 +1,622 @@
+@charset "UTF-8";
+
+/* ═══════════════════════════════════════════
+   Design Variables & Root Styling
+   ═══════════════════════════════════════════ */
+:root {
+  --wine: #c77d8f;
+  --wine-dark: #a25568;
+  --wine-light: rgba(199, 125, 143, 0.08);
+  --gold: #e8a87c;
+  --gold-dark: #c29a62;
+  --paper: #fffdfa;
+  --bg-gradient: linear-gradient(135deg, #fef6f7 0%, #faeaee 100%);
+  
+  --font-sans: 'Quicksand', sans-serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-serif: 'Playfair Display', serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  --radius-card: 20px;
+  --shadow-base: 0 12px 30px rgba(61, 16, 25, 0.08);
+  --shadow-high: 0 20px 48px rgba(61, 16, 25, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-gradient);
+  color: #4a3e43;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background floating stickers */
+.bg-decorations {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decor-item {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.15;
+  animation: floatBg 8s ease-in-out infinite alternate;
+}
+
+.item-1 { top: 10%; left: 10%; animation-delay: 0s; }
+.item-2 { top: 15%; right: 12%; animation-delay: 2s; }
+.item-3 { bottom: 15%; left: 15%; animation-delay: 4s; }
+.item-4 { bottom: 12%; right: 10%; animation-delay: 1s; }
+
+@keyframes floatBg {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-15px) rotate(10deg); }
+}
+
+.page-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Utilities */
+.is-hidden {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════
+   1. PASSWORD AUTH SCREEN
+   ═══════════════════════════════════════════ */
+.auth-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  animation: fadeIn 0.6s var(--ease);
+}
+
+.auth-card {
+  width: 100%;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: var(--shadow-base);
+  border: 1px solid rgba(199, 125, 143, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--wine), var(--gold));
+}
+
+.auth-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  background: var(--wine-light);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 24px;
+}
+
+.auth-icon {
+  font-size: 2.2rem;
+}
+
+.auth-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--wine-dark);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.auth-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1.05rem;
+  border: 1.5px solid rgba(199, 125, 143, 0.25);
+  border-radius: 30px;
+  background: transparent;
+  text-align: center;
+  font-family: var(--font-sans);
+  color: #4a3e43;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--wine);
+  box-shadow: 0 4px 12px rgba(199, 125, 143, 0.1);
+  background: #fff;
+}
+
+.auth-button {
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+  color: #fff;
+  border: 0;
+  border-radius: 30px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(162, 85, 104, 0.25);
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(162, 85, 104, 0.35);
+}
+
+.auth-button:active {
+  transform: translateY(0);
+}
+
+.auth-error {
+  color: #c72c41;
+  font-size: 0.85rem;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════
+   2. CARD DECK SCREEN
+   ═══════════════════════════════════════════ */
+.deck-section {
+  width: 100%;
+  animation: fadeIn 0.8s var(--ease);
+}
+
+.deck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.back-home-link {
+  color: var(--wine-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.3s ease;
+}
+
+.back-home-link:hover {
+  opacity: 0.8;
+}
+
+.deck-counter {
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--wine-light);
+  color: var(--wine-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* Deck Container & Stack layout */
+.deck-container {
+  width: 100%;
+  height: 480px;
+  position: relative;
+  perspective: 1000px;
+  margin-bottom: 30px;
+}
+
+.deck-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.deck-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: rgba(250, 234, 238, 0.5);
+  border-radius: var(--radius-card);
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid var(--wine-light);
+  border-top-color: var(--wine);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Individual Stack Cards */
+.rsvp-card {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-base);
+  border: 1px solid rgba(199, 125, 143, 0.12);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+}
+
+.rsvp-card:active {
+  cursor: grabbing;
+}
+
+/* Realistic stack tilts */
+.rsvp-card:nth-last-child(5n+1) { transform: translate3d(0, 0, 0) rotate(-1.5deg); }
+.rsvp-card:nth-last-child(5n+2) { transform: translate3d(0, 0, 0) rotate(1deg); }
+.rsvp-card:nth-last-child(5n+3) { transform: translate3d(0, 0, 0) rotate(-0.5deg); }
+.rsvp-card:nth-last-child(5n+4) { transform: translate3d(0, 0, 0) rotate(1.5deg); }
+.rsvp-card:nth-last-child(5n+5) { transform: translate3d(0, 0, 0) rotate(-1deg); }
+
+/* The top card gets high shadow, and full interactive states */
+.rsvp-card:last-child {
+  transform: translate3d(0, 0, 0) rotate(0deg) !important;
+  box-shadow: var(--shadow-high);
+  z-index: 10;
+}
+
+.rsvp-card:nth-last-child(2) {
+  transform: translate3d(0, 6px, -10px) rotate(-1deg);
+  z-index: 9;
+}
+
+.rsvp-card:nth-last-child(3) {
+  transform: translate3d(0, 12px, -20px) rotate(1.2deg);
+  z-index: 8;
+}
+
+.rsvp-card:nth-last-child(4) {
+  transform: translate3d(0, 18px, -30px) rotate(-0.8deg);
+  z-index: 7;
+  opacity: 0.85;
+}
+
+.rsvp-card:nth-last-child(n+5) {
+  transform: translate3d(0, 22px, -40px) rotate(0.5deg);
+  z-index: 6;
+  opacity: 0.6;
+}
+
+/* Arched mirror profile inside card header */
+.card-header {
+  border-radius: 90px 90px 8px 8px;
+  background: var(--wine-light);
+  padding: 16px 12px 12px;
+  text-align: center;
+  border: 1px solid rgba(199, 125, 143, 0.15);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.card-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+.card-guest-name {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--wine-dark);
+  margin-bottom: 8px;
+}
+
+/* Badges for status */
+.badge-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.status-badge.status-yes {
+  background: rgba(162, 199, 174, 0.2);
+  color: #3b7a57;
+  border: 1px solid rgba(162, 199, 174, 0.4);
+}
+
+.status-badge.status-no {
+  background: rgba(225, 180, 188, 0.25);
+  color: var(--wine-dark);
+  border: 1px solid rgba(225, 180, 188, 0.4);
+}
+
+.party-badge {
+  background: rgba(232, 168, 124, 0.15);
+  color: #b0622c;
+  border: 1px solid rgba(232, 168, 124, 0.3);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Message wish styling */
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4px;
+  margin-bottom: 16px;
+  overflow-y: auto;
+}
+
+.guest-wish {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  text-align: justify;
+  font-style: italic;
+  opacity: 0.9;
+  position: relative;
+  padding: 0 16px;
+}
+
+.guest-wish::before,
+.guest-wish::after {
+  color: var(--wine);
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  position: absolute;
+  line-height: 1;
+}
+
+.guest-wish::before {
+  content: "“";
+  top: -8px;
+  left: -2px;
+}
+
+.guest-wish::after {
+  content: "”";
+  bottom: -22px;
+  right: -2px;
+}
+
+/* Card footer details */
+.card-footer {
+  border-top: 1px dashed rgba(199, 125, 143, 0.15);
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+.guest-count-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* SPECIAL END STATE CARD */
+.end-card {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed rgba(199, 125, 143, 0.35);
+  background: linear-gradient(to bottom, #ffffff, #fdf8f9);
+}
+
+.end-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  animation: heartbeat 1.2s infinite alternate;
+}
+
+@keyframes heartbeat {
+  to { transform: scale(1.15); }
+}
+
+.end-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--wine-dark);
+  margin-bottom: 8px;
+}
+
+.end-desc {
+  font-size: 0.88rem;
+  opacity: 0.8;
+  margin-bottom: 24px;
+  padding: 0 12px;
+  line-height: 1.5;
+}
+
+.restart-btn {
+  background: var(--paper);
+  color: var(--wine-dark);
+  border: 2px solid var(--wine);
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.restart-btn:hover {
+  background: var(--wine);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(162, 85, 104, 0.15);
+}
+
+/* ═══════════════════════════════════════════
+   3. DECK CONTROLS (TINDER BUTTONS)
+   ═══════════════════════════════════════════ */
+.deck-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--paper);
+  box-shadow: 0 6px 16px rgba(61, 16, 25, 0.06);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(61, 16, 25, 0.12);
+}
+
+.btn-left {
+  color: #b0622c;
+  border: 1px solid rgba(232, 168, 124, 0.4);
+}
+
+.btn-left:hover {
+  background: rgba(232, 168, 124, 0.15);
+}
+
+.btn-right {
+  color: var(--wine-dark);
+  border: 1px solid rgba(199, 125, 143, 0.4);
+}
+
+.btn-right:hover {
+  background: var(--wine-light);
+}
+
+.control-hint {
+  font-size: 0.72rem;
+  opacity: 0.65;
+  text-align: center;
+  flex-grow: 1;
+  padding: 0 4px;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   4. SWIPE KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════ */
+.swiped-left {
+  animation: swipeLeft 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+.swiped-right {
+  animation: swipeRight 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+.card-resetting {
+  animation: cardReset 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes swipeLeft {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(-150%, 40px, 0) rotate(-25deg); opacity: 0; }
+}
+
+@keyframes swipeRight {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(150%, 40px, 0) rotate(25deg); opacity: 0; }
+}
+
+@keyframes cardReset {
+  0% { transform: translate3d(0, 60px, -40px) scale(0.9); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
