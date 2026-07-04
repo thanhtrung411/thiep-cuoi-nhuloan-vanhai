@@ -14,7 +14,7 @@
   --ink: #3d2c33;
   --muted: #8a7680;
   --line: rgba(61, 44, 51, 0.12);
-  --shadow: 0 20px 60px rgba(162, 85, 104, 0.15);
+  --shadow: 0 12px 30px rgba(162, 85, 104, 0.12), 0 2px 10px rgba(162, 85, 104, 0.05);
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -584,6 +584,7 @@ button { border: 0; cursor: pointer; }
   margin: 1.5rem auto 0;
   overflow: hidden;
   background: var(--ivory);
+  border: 1.5px solid rgba(199, 125, 143, 0.22);
   box-shadow: var(--shadow);
   text-align: left;
 }
@@ -655,6 +656,9 @@ button { border: 0; cursor: pointer; }
   padding: 1.2rem;
   background: var(--paper);
   text-align: center;
+  border-radius: 20px;
+  border: 1.5px solid rgba(199, 125, 143, 0.22);
+  box-shadow: var(--shadow);
 }
 
 .calendar-title {
@@ -766,6 +770,7 @@ button { border: 0; cursor: pointer; }
   background: var(--paper);
   text-align: center;
   border-radius: 20px;
+  border: 1.5px solid rgba(199, 125, 143, 0.22);
   box-shadow: var(--shadow);
 }
 
@@ -1225,6 +1230,7 @@ button { border: 0; cursor: pointer; }
   gap: 1rem;
   padding: 1.5rem 1.2rem;
   background: var(--ivory);
+  border: 1.5px solid rgba(199, 125, 143, 0.22);
   box-shadow: var(--shadow);
   border-radius: 24px;
 }
@@ -1468,6 +1474,7 @@ button { border: 0; cursor: pointer; }
   gap: 0.6rem;
   justify-items: center;
   border-radius: 20px;
+  border: 1.5px solid rgba(199, 125, 143, 0.22);
   box-shadow: var(--shadow);
 }
 
@@ -1969,5 +1976,75 @@ button { border: 0; cursor: pointer; }
   font-size: 0.88rem;
   color: var(--muted);
   line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   Auto-Open & Falling Flowers Adjustments
+   ═══════════════════════════════════════════ */
+.gate-auto-open {
+  margin: 1.2rem 0 0;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255,252,246,0.6);
+  font-style: italic;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(199, 125, 143, 0.7), 0 10px 26px rgba(128,30,42,0.34); }
+  70% { box-shadow: 0 0 0 12px rgba(199, 125, 143, 0), 0 10px 26px rgba(128,30,42,0.34); }
+  100% { box-shadow: 0 0 0 0 rgba(199, 125, 143, 0), 0 10px 26px rgba(128,30,42,0.34); }
+}
+
+#musicToggle:not(.is-active) {
+  animation: pulseGlow 1.8s infinite;
+}
+
+/* Falling Flowers/Hearts 3D Effect */
+.falling-petal {
+  position: fixed;
+  top: -30px;
+  pointer-events: none;
+  z-index: 999;
+  user-select: none;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  animation: fallAndDrift 6s linear forwards;
+}
+
+.falling-petal.petal-type-1 {
+  background: linear-gradient(135deg, #ffe3e9 0%, #ffb7c5 100%);
+  border-radius: 15px 2px 15px 15px;
+  box-shadow: 0 2px 6px rgba(225, 180, 188, 0.35);
+}
+
+.falling-petal.petal-type-2 {
+  background: linear-gradient(135deg, #ffd3dc 0%, #fa9eb2 100%);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  box-shadow: 0 2px 6px rgba(225, 180, 188, 0.35);
+}
+
+.falling-petal.petal-type-3 {
+  background: #fffbdf;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ffe89e, 0 0 12px #ffdf7a;
+}
+
+@keyframes fallAndDrift {
+  0% {
+    transform: translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(var(--init-rot, 0deg)) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(105vh) rotateX(360deg) rotateY(180deg) rotateZ(var(--end-rot, 360deg)) translateX(var(--drift));
+    opacity: 0;
+  }
 }
 

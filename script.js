@@ -6,21 +6,103 @@
      ============================================================ */
   const initGate = () => {
     const gate = document.getElementById("invitationGate");
-    const musicHint = document.getElementById("musicHint");
+    const secEl = document.getElementById("autoOpenSec");
 
     if (!gate) return;
 
-    gate.addEventListener(
-      "click",
-      () => {
-        document.body.classList.add("gate-open");
-        gate.classList.add("is-open");
+    let timeLeft = 5;
+    let isOpened = false;
 
-        // Attempt to start background music when gate opens
-        tryPlayMusic();
-      },
-      { once: true }
-    );
+    const triggerFallingFlowers = (count, maxDelay = 2.0) => {
+      const container = document.body;
+
+      for (let i = 0; i < count; i++) {
+        const petal = document.createElement("div");
+        
+        // Chọn ngẫu nhiên loại cánh hoa (1: đào, 2: hồng, 3: đốm sáng)
+        const type = Math.random() < 0.45 ? 1 : (Math.random() < 0.8 ? 2 : 3);
+        petal.className = `falling-petal petal-type-${type}`;
+
+        const left = Math.random() * 100; // Vị trí xuất phát ngẫu nhiên
+        const scale = 0.6 + Math.random() * 0.7; // Kích thước ngẫu nhiên từ 0.6x đến 1.3x
+        
+        let width = 12;
+        let height = 14;
+        if (type === 3) {
+          width = 6;
+          height = 6;
+        }
+
+        // Tốc độ rơi: Kéo dài từ 6 đến 10 giây cực kỳ uyển chuyển chậm rãi
+        const duration = 6.0 + Math.random() * 4.0;
+        const delay = Math.random() * maxDelay; // Sử dụng maxDelay để kéo giãn thời gian bắt đầu rơi của mỗi cánh hoa
+        const drift = -120 + Math.random() * 240; // Độ bay lệch ngang ngẫu nhiên rộng
+
+        petal.style.left = `${left}%`;
+        petal.style.width = `${width * scale}px`;
+        petal.style.height = `${height * scale}px`;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${delay}s`;
+        
+        // Truyền các biến CSS cho animation
+        petal.style.setProperty("--drift", `${drift}px`);
+        
+        // Tạo góc xoay ban đầu và kết thúc ngẫu nhiên cho hiệu ứng nhào lộn 3D
+        const initRot = Math.random() * 360;
+        const endRot = initRot + 180 + Math.random() * 360;
+        petal.style.setProperty("--init-rot", `${initRot}deg`);
+        petal.style.setProperty("--end-rot", `${endRot}deg`);
+
+        container.appendChild(petal);
+
+        // Tự động giải phóng bộ nhớ sau khi cánh hoa đã rơi hết
+        setTimeout(() => {
+          petal.remove();
+        }, (duration + delay) * 1000);
+      }
+    };
+
+    const openGate = () => {
+      if (isOpened) return;
+      isOpened = true;
+
+      // Xóa các bộ đếm thời gian
+      clearInterval(countdownInterval);
+      clearTimeout(autoOpenTimeout);
+
+      document.body.classList.add("gate-open");
+      gate.classList.add("is-open");
+
+      // Cố gắng phát nhạc khi mở thiệp
+      tryPlayMusic();
+
+      // 1. Kích hoạt đợt rơi cánh hoa chào mừng ban đầu (30 cánh), so le rải rác trong 8 giây đầu
+      triggerFallingFlowers(30, 8.0);
+
+      // 2. Duy trì mưa hoa bay liên tục: mỗi 1 giây rơi 2 cánh, so le trong 1 giây
+      setInterval(() => {
+        triggerFallingFlowers(2, 1.0);
+      }, 1000);
+    };
+
+    // Mở thủ công bằng cách click
+    gate.addEventListener("click", openGate, { once: true });
+
+    // Đếm ngược số giây hiển thị trên giao diện
+    const countdownInterval = setInterval(() => {
+      timeLeft--;
+      if (secEl) {
+        secEl.textContent = timeLeft;
+      }
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+
+    // Tự động mở sau 5 giây
+    const autoOpenTimeout = setTimeout(() => {
+      openGate();
+    }, 5000);
   };
 
   /* ============================================================
@@ -61,6 +143,33 @@
       .catch(() => {
         if (musicHint) musicHint.textContent = "Chạm để bật nhạc";
         musicToggle?.classList.remove("is-active");
+
+        // GESTURE FALLBACK: Tự động phát nhạc ở lần đầu chạm, lướt hoặc cuộn trang nếu bị trình duyệt chặn autoplay
+        const playMusicFallback = () => {
+          if (audio.paused) {
+            audio.play().then(() => {
+              if (musicHint) musicHint.textContent = "Nhạc đang phát";
+              musicToggle?.classList.add("is-active");
+              removeFallbackListeners();
+            }).catch(() => {});
+          } else {
+            removeFallbackListeners();
+          }
+        };
+
+        const removeFallbackListeners = () => {
+          const events = ["pointerdown", "pointerup", "touchstart", "touchend", "click", "scroll", "wheel"];
+          events.forEach(ev => {
+            window.removeEventListener(ev, playMusicFallback);
+            document.removeEventListener(ev, playMusicFallback);
+          });
+        };
+
+        const events = ["pointerdown", "pointerup", "touchstart", "touchend", "click", "scroll", "wheel"];
+        events.forEach(ev => {
+          window.addEventListener(ev, playMusicFallback, { passive: true });
+          document.addEventListener(ev, playMusicFallback, { passive: true });
+        });
       });
   };
 
