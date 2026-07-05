@@ -2048,3 +2048,31 @@ button { border: 0; cursor: pointer; }
   }
 }
 
+/* Footer Credit */
+.footer-credit {
+  text-align: center;
+  padding: 1rem 0 3rem;
+  font-family: Quicksand, Quicksand, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.designer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.designer-link:hover {
+  opacity: 0.95;
+  color: var(--wine-dark);
+}
+
+.fb-icon {
+  margin-top: 1px;
+}
+
