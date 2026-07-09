@@ -6,6 +6,7 @@ const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyZ8MYvg7-DJfc
 
 // Danh sách chứa RSVP nhận được
 let allRsvps = [];
+let cardElements = []; // Bộ nhớ cache lưu trữ các phần tử DOM để tăng hiệu năng trên điện thoại
 let currentIndex = 0;
 let isAnimating = false;
 
@@ -32,7 +33,8 @@ const handleAuthSubmit = async () => {
     const result = await response.json();
     
     if (result.status === "success") {
-      allRsvps = result.data || [];
+      // Đảo ngược mảng để quét từ trên bảng xuống (hàng đầu tiên = lá bài đầu tiên)
+      allRsvps = (result.data || []).reverse();
       
       // Chuyển sang màn hình hiển thị bộ bài
       document.getElementById("authSection").classList.add("is-hidden");
@@ -62,8 +64,9 @@ const initDeck = () => {
   const deckCounter = document.getElementById("deckCounter");
   const deckControls = document.getElementById("deckControls");
   
-  // Dọn dẹp màn hình chờ Loading
+  // Dọn dẹp màn hình và cache cũ
   deckWrapper.innerHTML = "";
+  cardElements = [];
   currentIndex = 0;
   
   if (allRsvps.length === 0) {
@@ -97,13 +100,16 @@ const initDeck = () => {
   deckWrapper.appendChild(endCard);
   
   // 2. Vẽ các lá bài chúc mừng từ cuối mảng đến đầu mảng
-  allRsvps.forEach((rsvp, index) => {
+  // Lá bài được append sau cùng sẽ nằm trên cùng trong DOM
+  // => Duyệt ngược từ cuối mảng lên đầu để lá bài index 0 nằm trên cùng
+  for (let i = allRsvps.length - 1; i >= 0; i--) {
+    const rsvp = allRsvps[i];
     const card = document.createElement("div");
     card.className = "rsvp-card";
-    card.id = `card-${index}`;
+    card.id = `card-${i}`;
     
-    // Rút gọn định dạng ngày tháng nếu có
-    const displayTime = rsvp.time ? rsvp.time.split(" ")[1] || rsvp.time : "";
+    // Hiển thị đầy đủ ngày giờ phút giây
+    const displayTime = rsvp.time || "";
     
     // Xác định badge trạng thái tham dự
     const isYes = rsvp.attendance.toLowerCase().includes("sẽ tham dự") || rsvp.attendance.toLowerCase().includes("yes");
@@ -112,7 +118,7 @@ const initDeck = () => {
     
     card.innerHTML = `
       <div class="card-header">
-        <span class="card-num">#${allRsvps.length - index}</span>
+        <span class="card-num">#${i + 1}</span>
         <h2 class="card-guest-name">${escapeHtml(rsvp.name)}</h2>
         <div class="badge-group">
           <span class="status-badge ${statusClass}">${statusText}</span>
@@ -134,14 +140,68 @@ const initDeck = () => {
     `;
     
     // Đăng ký sự kiện Click/Touch để vuốt lá bài trên cùng
-    card.addEventListener("click", () => swipeCard(index));
+    card.addEventListener("click", () => swipeCard(i));
     
     deckWrapper.appendChild(card);
-  });
+    cardElements[i] = card; // Lưu cache DOM tham chiếu
+  }
   
   // Hiển thị bộ đếm và bảng điều khiển nút ở dưới
   updateCounter();
+  updateStack();
   deckControls.classList.remove("is-hidden");
+};
+
+/**
+ * 2.5 CẬP NHẬT HIỆU ỨNG XẾP BÀI (STACK VISUAL)
+ * Chỉ hiện tối đa 3 lá bài, các lá phía dưới lệch phải-xuống
+ */
+const MAX_VISIBLE = 3;
+
+const updateStack = () => {
+  // Chỉ lặp qua khoảng hoạt động nhỏ xung quanh lá bài hiện tại (Tăng tốc độ render cực lớn trên di động)
+  const start = currentIndex;
+  const end = Math.min(allRsvps.length, currentIndex + MAX_VISIBLE + 1);
+  
+  // Ẩn lá bài vừa bị vuốt đi ngay lập tức
+  if (currentIndex > 0) {
+    const prevCard = cardElements[currentIndex - 1];
+    if (prevCard) {
+      prevCard.style.visibility = "hidden";
+      prevCard.style.opacity = "0";
+    }
+  }
+
+  for (let i = start; i < end; i++) {
+    const card = cardElements[i];
+    if (!card) continue;
+    
+    // Bỏ qua các lá bài đã bị vuốt
+    if (card.classList.contains("swiped-left") || card.classList.contains("swiped-right")) continue;
+    
+    const stackPos = i - currentIndex; // Vị trí trong xấp bài (0 = trên cùng)
+    
+    if (stackPos >= MAX_VISIBLE) {
+      card.style.visibility = "hidden";
+      card.style.opacity = "0";
+      card.removeAttribute("data-stack");
+      continue;
+    }
+    
+    // Hiện lá bài trong stack
+    card.style.visibility = "visible";
+    card.style.opacity = stackPos === 0 ? "1" : `${1 - stackPos * 0.05}`;
+    card.setAttribute("data-stack", stackPos);
+    
+    // Hiệu ứng lệch phải-xuống cho các lá bài phía dưới (lộ cạnh bài rõ)
+    const offsetX = stackPos * 8;   // Lệch phải (px)
+    const offsetY = stackPos * 6;   // Lệch xuống (px)
+    const scale = 1 - stackPos * 0.02; // Thu nhỏ nhẹ
+    const zIndex = MAX_VISIBLE - stackPos;
+    
+    card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
+    card.style.zIndex = zIndex;
+  }
 };
 
 /**
@@ -150,17 +210,21 @@ const initDeck = () => {
 const swipeCard = (index) => {
   if (isAnimating || index !== currentIndex) return;
   
-  const card = document.getElementById(`card-${index}`);
+  const card = cardElements[index];
   if (!card) return;
   
   isAnimating = true;
   
   // So le hướng vuốt: chỉ số chẵn vuốt phải (Right), chỉ số lẻ vuốt trái (Left)
   const directionClass = index % 2 === 0 ? "swiped-right" : "swiped-left";
+  card.style.transition = "none";
   card.classList.add(directionClass);
   
   currentIndex++;
   updateCounter();
+  
+  // Cập nhật stack ngay lập tức để các lá bài phía dưới trượt lên
+  updateStack();
   
   // Đợi animation hoàn thành sau 550ms
   setTimeout(() => {
@@ -203,9 +267,11 @@ const resetDeck = () => {
   
   // Khôi phục hiển thị và tạo hiệu ứng fly-back cho tất cả lá bài
   for (let i = allRsvps.length - 1; i >= 0; i--) {
-    const card = document.getElementById(`card-${i}`);
+    const card = cardElements[i];
     if (card) {
       card.style.display = "flex";
+      card.classList.remove("swiped-left", "swiped-right");
+      card.style.transition = "";
       card.className = "rsvp-card card-resetting";
       
       // Xóa class reset sau khi animation kết thúc
@@ -215,7 +281,17 @@ const resetDeck = () => {
     }
   }
   
+  // Cập nhật stack sau khi reset
   setTimeout(() => {
+    // Ẩn trước những card nằm ngoài tầm nhìn ban đầu để tránh chớp nháy
+    for (let i = MAX_VISIBLE; i < allRsvps.length; i++) {
+      const card = cardElements[i];
+      if (card) {
+        card.style.visibility = "hidden";
+        card.style.opacity = "0";
+      }
+    }
+    updateStack();
     isAnimating = false;
   }, 500);
 };
